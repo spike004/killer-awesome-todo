@@ -11,8 +11,7 @@ module.exports={
   createTodo: (req, res) => {
     console.log(req.params)
     let {todo, urgency} = req.params
-
-    console.log(todo, urgency)
+    // console.log(todo, urgency)
 
     let newTodo = {
       theTodo: todo,
