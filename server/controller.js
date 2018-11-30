@@ -1,25 +1,23 @@
-let todos = []
-let uniqueId = 1
-
-module.exports={
-  test: (req, res) => {    
+module.exports = {
+  test: (req, res, next) => {
     res.status(200).send('Woopie Goldberg')
   },
   getTodos: (req, res) => {
-    res.status(200).send(todos)
+    let dbInstance = req.app.get('db')
+    dbInstance.get_todos()
+      .then((todos) => {
+        console.log(todos)
+        res.status(200).send(todos)
+      })
   },
   createTodo: (req, res) => {
-    console.log(req.params)
-    let {todo, urgency} = req.params
-    // console.log(todo, urgency)
+    let { todo, urgency } = req.params
+    let dbInstance = req.app.get('db')
 
-    let newTodo = {
-      theTodo: todo,
-      urgency: urgency,
-      id: uniqueId,
-    }
-    uniqueId++
-    todos.push(newTodo)
-    res.status(200).send(todos)
+    dbInstance.add_todo(todo, urgency)
+      .then((todos) => {
+        console.log(todos)
+        res.status(200).send(todos)
+      })
   }
 }

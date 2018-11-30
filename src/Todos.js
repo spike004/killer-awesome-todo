@@ -13,6 +13,7 @@ class Todos extends Component {
   }
   componentDidMount() {
     axios.get('/todo').then((response) => {
+      console.log(response)
       this.setState({
         todos: response.data
       })
@@ -39,8 +40,8 @@ class Todos extends Component {
       mappedTodos = this.state.todos.map((todo) => {
         return (
           <div key={todo.id}>
-            <h2>{todo.theTodo}</h2>
-            <p>{todo.urgency}</p>
+            <h2>{todo.todo}</h2>
+            <p>{todo.importance}</p>
           </div>
         )
       })
